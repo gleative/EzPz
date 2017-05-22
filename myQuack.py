@@ -10,7 +10,7 @@ Write a main function that calls different functions to perform the required tas
 '''
 
 
-
+import numpy as np
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -45,9 +45,8 @@ def prepare_dataset(dataset_path):
 	X,y
     '''
     ##         "INSERT YOUR CODE HERE"
-    file = open(dataset_path, "r")
-    for line in file:
-        print(line)
+    data = np.loadtxt(dataset_path)
+    print(data)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def build_NB_classifier(X_training, y_training):
