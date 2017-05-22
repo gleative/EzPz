@@ -13,6 +13,13 @@ Write a main function that calls different functions to perform the required tas
 import numpy as np
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+global X_TrainingData
+global X_ValidationData 
+global X_TestData
+
+global Y_TrainingData
+global Y_ValidationData
+global Y_TestData 
 
 
 def my_team():
@@ -25,7 +32,46 @@ def my_team():
     return [ (9890394, 'Vanessa', 'Gutierrez'), (9884050, 'Glenn', 'Christensen'), (9884076, 'Marius', 'Imingen') ]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def partition_dataset(X_All):
+    '''Takes data set, randomizes order of rows, assigns 70% to Training, 15% 
+    to Testing and 15% to Validation, and appropriate values to Y arrays
+    
+    @param not random data set
+    @return randomized dataset
+    '''
+    
+    n = X_All.shape[0]
+    n7 = int(n*.7)
+    n85 = int(n*.85)
+    randomOrder = np.random.permutation(n)
+    randomElements = X_All[randomOrder]    
 
+    X_TrainingData = randomElements[:n7]
+    X_ValidationData = randomElements[n7:n85]
+    X_TestData = randomElements[n85:]
+    
+    for elem in X_TrainingData:
+        if 'M' in str(elem[1]):
+            Y_TrainingData.append(1)
+        elif 'B' in str(elem[1]):
+            Y_TrainingData.append(0)
+
+    for elem in X_ValidationData:
+        if 'M' in str(elem[1]):
+            Y_ValidationData.append(1)
+        elif 'B' in str(elem[1]):
+            Y_ValidationData.append(0)
+            
+    for elem in X_TestData:
+        if 'M' in str(elem[1]):
+            Y_TestData.append(1)
+        elif 'B' in str(elem[1]):
+            Y_TestData.append(0)      
+            
+            
+    return randomElements
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def prepare_dataset(dataset_path):
     '''
@@ -44,9 +90,21 @@ def prepare_dataset(dataset_path):
     @return
 	X,y
     '''
-    ##         "INSERT YOUR CODE HERE"
-    data = np.loadtxt(dataset_path)
-    print(data)
+    X_All = np.genfromtxt(dataset_path, delimiter=",", dtype=None)
+    randX_All = partition_dataset(X_All)
+    print( randX_All)
+    print("X")
+    print(X_TestData)
+    print("Y")
+    print(Y_TestData)
+    
+    Y = []
+    for elem in randX_All:
+        if 'M' in str(elem[1]):
+            Y.append(1)
+        elif 'B' in str(elem[1]):
+            Y.append(0)
+    return(randX_All, Y)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def build_NB_classifier(X_training, y_training):
@@ -113,9 +171,9 @@ def build_SVM_classifier(X_training, y_training):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if __name__ == "__main__":
+if __name__ == "__main__": # call your functions here
     pass
-    # call your functions here
+   
     prepare_dataset("medical_records.data")
 
 
