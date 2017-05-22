@@ -45,8 +45,9 @@ def prepare_dataset(dataset_path):
 	X,y
     '''
     ##         "INSERT YOUR CODE HERE"
-    raise NotImplementedError()
-
+    file = open(dataset_path, "r")
+    for line in file:
+        print(line)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def build_NB_classifier(X_training, y_training):
@@ -116,5 +117,6 @@ def build_SVM_classifier(X_training, y_training):
 if __name__ == "__main__":
     pass
     # call your functions here
+    prepare_dataset("medical_records.data")
 
 
