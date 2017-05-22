@@ -92,11 +92,6 @@ def prepare_dataset(dataset_path):
     '''
     X_All = np.genfromtxt(dataset_path, delimiter=",", dtype=None)
     randX_All = partition_dataset(X_All)
-    print( randX_All)
-    print("X")
-    print(X_TestData)
-    print("Y")
-    print(Y_TestData)
     
     Y = []
     for elem in randX_All:
